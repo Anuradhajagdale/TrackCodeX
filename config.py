@@ -1,4 +1,9 @@
+import os
+
 class Config:
     SECRET_KEY = "supersecretkey"
-    SQLALCHEMY_DATABASE_URI = "sqlite:///trackcodex.db"
+    
+    BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+    SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(BASE_DIR, "trackcodex.db")
+    
     SQLALCHEMY_TRACK_MODIFICATIONS = False
