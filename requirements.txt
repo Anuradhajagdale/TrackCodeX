@@ -3,3 +3,5 @@ Flask-SQLAlchemy
 Flask-Login
 Flask-Migrate
 gunicorn
+qrcode
+Pillow
