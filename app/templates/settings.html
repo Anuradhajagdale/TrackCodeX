@@ -1,0 +1,131 @@
+{% extends "dashboard.html" %}
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow p-4 rounded-4">
+        <h3 class="mb-4">⚙ Account Settings</h3>
+
+        <form method="POST" action="{{ url_for('auth.settings') }}">
+
+            <!-- Company Info -->
+            <h5 class="mb-3">💻Company Information</h5>
+
+            <div class="mb-3">
+                <label class="form-label">Company Name</label>
+                <input type="text" name="company_name"
+                       class="form-control"
+                       value="{{ company.name }}">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Company Email</label>
+                <input type="email" name="company_email"
+                       class="form-control"
+                       value="{{ company.email }}">
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">Category</label>
+                <input type="text" name="company_category"
+                       class="form-control"
+                       value="{{ company.category }}">
+            </div>
+
+
+<div class="mb-4">
+                <label class="form-label">Product Name</label>
+                <input type="text" name="company_product_name"
+                       class="form-control"
+                       value="{{ company.products[0].product_name if company.products else '' }}">
+            </div>
+
+
+
+
+
+
+
+            <div class="section">
+<h3>Security Settings</h3>
+<select name="2fa">
+<option>Enable 2FA</option>
+<option>Disable 2FA</option>
+</select>
+
+<select name="ai_alerts">
+<option>🚨Enable AI Fraud Alerts</option>
+<option>⚠️Disable AI Fraud Alerts</option>
+</select>
+
+<select name="auto_block">
+<option>Auto Block Suspicious Codes</option>
+<option>Manual Review</option>
+</select>
+</div>
+
+            <hr>
+
+            <!-- Appearance -->
+            <h5 class="mb-3 mt-4">Appearance</h5>
+
+            <div class="mb-4">
+                <label class="form-label">Theme Mode</label>
+
+                <select name="theme" class="form-select">
+
+                    <option value="default"
+                    {% if company.theme == "default" %}selected{% endif %}>
+                        Default Mode
+                    </option>
+
+                    <option value="light"
+                    {% if company.theme == "light" %}selected{% endif %}>
+                        🌞 Light Mode
+                    </option>
+
+                    <option value="dark"
+                    {% if company.theme == "dark" %}selected{% endif %}>
+                        🌙 Dark Mode
+                    </option>
+
+                </select>
+            </div>
+
+
+
+            <div class="section">
+<h3>Notification Settings</h3>
+<select name="email_notify">
+<option>📩Email Alerts ON</option>
+<option>✉️Email Alerts OFF</option>
+</select>
+
+<select name="sms_notify">
+<option>🔔SMS Alerts ON</option>
+<option>🔕SMS Alerts OFF</option>
+</select>
+</div>
+<br>
+
+
+<div class="section">
+<h3>🔁Data & Backup</h3>
+<select name="backup">
+<option>Daily Backup</option>
+<option>Weekly Backup</option>
+<option>Manual Backup</option>
+</select>
+</div>
+<br>
+
+            <button type="submit" class="btn btn-primary px-4">
+                💾 Save Settings
+            </button>
+
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

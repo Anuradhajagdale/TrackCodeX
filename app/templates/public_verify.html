@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TrackCodeX | Verify Product</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://unpkg.com/html5-qrcode"></script>
+
+    <style>
+        body{
+            font-family:Arial;
+            background:linear-gradient(135deg,#1e0033,#6a00ff,#ff00cc);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+            color:white;
+        }
+
+        .card{
+            width:400px;
+            padding:30px;
+            border-radius:20px;
+            background:rgba(255,255,255,0.1);
+            backdrop-filter:blur(15px);
+            text-align:center;
+        }
+
+        input{
+            width:100%;
+            padding:12px;
+            border-radius:10px;
+            border:none;
+            margin-top:15px;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            border-radius:10px;
+            border:none;
+            margin-top:15px;
+            background:#0dd220;
+            font-weight:bold;
+            cursor:pointer;
+        }
+
+        #reader{
+            margin-top:20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+
+    <h2>Scan & Verify Product</h2>
+
+    <form method="POST" id="verifyForm">
+        <input type="text" name="code" id="codeInput"
+               placeholder="Scan or Enter Code"
+               required>
+
+        <button type="submit">Verify</button>
+    </form>
+
+    <div id="reader" style="width:100%;"></div>
+
+</div>
+
+<script>
+    function onScanSuccess(decodedText, decodedResult) {
+        document.getElementById('codeInput').value = decodedText;
+        document.getElementById('verifyForm').submit();
+    }
+
+    let html5QrcodeScanner = new Html5QrcodeScanner(
+        "reader",
+        { fps: 10, qrbox: 250 }
+    );
+    html5QrcodeScanner.render(onScanSuccess);
+</script>
+
+</body>
+</html>

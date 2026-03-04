@@ -1,0 +1,83 @@
+{% extends "dashboard.html" %}
+{% block content %}
+
+<div class="container mt-4">
+
+    <h3 class="mb-4">📊 Verification Logs</h3>
+
+    <!-- ================= VERIFY BY CODE ================= -->
+    <div class="card p-4 shadow mb-4">
+        <h5>Verify Product Code</h5>
+
+        <form method="POST" action="{{ url_for('auth.verify_post') }}">
+            <input type="text" name="code" class="form-control mb-3" placeholder="Enter Product Code" required>
+            <button class="btn btn-success w-100">Verify</button>
+        </form>
+    </div>
+
+    <!-- ================= QR SCANNER ================= -->
+    <div class="card p-4 shadow mb-4">
+        <h5>Scan QR Code</h5>
+        <div id="reader" style="width:350px;"></div>
+    </div>
+
+    <!-- ================= VERIFICATION TABLE ================= -->
+    <div class="card p-4 shadow">
+        <h5>Scanned Products</h5>
+
+        {% if scanned_codes %}
+        <table class="table table-bordered table-hover text-center align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Product Name</th>
+                    <th>Product Code</th>
+                    <th>Scan Count</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for code in scanned_codes %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ code.product_name }}</td>
+                    <td>{{ code.product_code }}</td>
+                    <td>{{ code.scan_count }}</td>
+                    <td>
+                        {% if code.scan_count == 1 %}
+                            <span class="badge bg-success">Authentic</span>
+                        {% elif code.scan_count > 1 %}
+                            <span class="badge bg-warning text-dark">Multiple Scans</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p>No products verified yet.</p>
+        {% endif %}
+    </div>
+
+</div>
+
+<!-- QR SCRIPT -->
+<script src="https://unpkg.com/html5-qrcode"></script>
+
+<script>
+function onScanSuccess(decodedText) {
+    window.location.href = "/verify/" + decodedText;
+}
+
+function onScanFailure(error) {
+}
+
+let html5QrcodeScanner = new Html5QrcodeScanner(
+    "reader",
+    { fps: 10, qrbox: 250 }
+);
+
+html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+</script>
+
+{% endblock %}

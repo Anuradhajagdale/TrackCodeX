@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TrackCodeX | Register</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#1e0033,#6a00ff,#ff00cc);
+background-size:300% 300%;
+animation:gradientBG 8s ease infinite;
+}
+
+@keyframes gradientBG{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.register-card{
+width:420px;
+padding:40px;
+border-radius:20px;
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(15px);
+box-shadow:0 8px 32px rgba(0,0,0,0.3);
+text-align:center;
+color:white;
+}
+
+.app-title{
+font-size:28px;
+font-weight:700;
+margin-bottom:10px;
+}
+
+.app-title span{
+background:linear-gradient(45deg,#ff00cc,#ffcc00);
+-webkit-background-clip:text;
+color:transparent;
+}
+
+.subtitle{
+font-size:14px;
+opacity:0.8;
+margin-bottom:10px;
+}
+
+.tagline{
+font-size:15px;
+font-weight:600;
+letter-spacing:2px;
+color:#ffcc00;
+margin-bottom:25px;
+}
+
+.input-box{
+margin-top:15px;
+}
+
+.input-box input{
+width:100%;
+padding:12px;
+border-radius:10px;
+border:none;
+outline:none;
+background:rgba(255,255,255,0.2);
+color:white;
+}
+
+.input-box input::placeholder{
+color:#ddd;
+}
+
+.btn{
+width:100%;
+padding:12px;
+border-radius:10px;
+border:none;
+font-weight:600;
+cursor:pointer;
+margin-top:20px;
+background:linear-gradient(45deg,#6a00ff,#ff00cc);
+color:white;
+transition:0.3s;
+}
+
+.btn:hover{
+transform:scale(1.05);
+}
+
+.login-link{
+margin-top:20px;
+font-size:14px;
+}
+
+.login-link a{
+color:#ffcc00;
+text-decoration:none;
+font-weight:600;
+}
+</style>
+</head>
+
+<body>
+
+<div class="register-card">
+
+<div class="app-title">
+TrackCode<span>X</span>
+</div>
+
+<div class="subtitle">
+Company Registration Portal
+</div>
+
+<div class="tagline">
+Scan. Verify. Trust.
+</div>
+
+<form method="POST" action="{{ url_for('auth.register') }}">
+
+<div class="input-box">
+<input type="text" name="company_name" placeholder="Name of Company" required>
+</div>
+
+<div class="input-box">
+<input type="text" name="category" placeholder="Type of Company" required>
+</div>
+
+<div class="input-box">
+<input type="email" name="email" placeholder="Company Email" required>
+</div>
+
+<div class="input-box">
+<input type="password" name="password" placeholder="Password" required>
+</div>
+
+
+
+
+
+<button type="submit" class="btn">Register</button>
+
+</form>
+
+<div class="login-link">
+Already have account?
+<a href="{{ url_for('auth.login') }}">Login</a>
+</div>
+
+</div>
+
+</body>
+</html>

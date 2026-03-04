@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %} 
+<div class="container mt-4">
+
+    <h2 class="mb-4">AI Security Monitoring</h2>
+
+    <!-- Top Cards -->
+    <div class="row">
+
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 p-3">
+                <h6 class="text-muted">Total Codes</h6>
+                <h2 class="fw-bold">{{ total_codes }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 p-3">
+                <h6 class="text-muted">Flagged Codes</h6>
+                <h2 class="fw-bold text-warning">{{ flagged_codes }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-0 p-3">
+                <h6 class="text-muted">Deleted Codes</h6>
+                <h2 class="fw-bold text-danger">{{ deleted_codes }}</h2>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Suspicious Activity Table -->
+    <div class="card shadow-sm border-0 mt-4">
+        <div class="card-header bg-white">
+            <h5 class="mb-0">Suspicious Activity</h5>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table align-middle mb-0">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>Track Code</th>
+                        <th>Scan Count</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for code in suspicious_codes %}
+                    <tr>
+                        <td>{{ code.product_code }}</td>
+                        <td>{{ code.scan_count }}</td>
+                        <td>
+                            {% if code.is_blocked %}
+                                <span class="badge bg-danger">Blocked</span>
+                            {% else %}
+                                <span class="badge bg-warning text-dark">Flagged</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

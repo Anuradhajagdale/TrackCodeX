@@ -1,0 +1,46 @@
+{% extends "dashboard.html" %}
+{% block content %}
+
+<h3>Generated Codes History</h3>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+         
+            <th>Track Code</th>
+            <th>Scan Count</th>
+            <th>Status</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for code in codes %}
+        <tr>
+            
+            <td>{{ code.product_code }}</td>
+            <td>{{ code.scan_count }}</td>
+
+            <!-- Status Column -->
+            <td>
+                {% if not code.is_deleted %}
+                    <span class="badge bg-success">Active</span>
+                {% else %}
+                    <span class="badge bg-danger">Deleted</span>
+                {% endif %}
+            </td>
+
+            <!-- Delete Button Column -->
+            <td>
+                <a href="{{ url_for('auth.delete_code', id=code.id) }}"
+                   onclick="return confirm('Are you sure you want to delete this code?');"
+                   class="btn btn-danger btn-sm">
+                   Delete
+                </a>
+            </td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

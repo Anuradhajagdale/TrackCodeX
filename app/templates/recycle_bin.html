@@ -1,0 +1,28 @@
+{% extends "dashboard.html" %}
+{% block content %}
+
+<h3>Recycle Bin</h3>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Track Code</th>
+            <th>Restore</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for code in deleted_codes %}
+        <tr>
+            <td>{{ code.product_code }}</td>
+            <td>
+                <a href="{{ url_for('auth.restore_code', id=code.id) }}" 
+                   class="btn btn-warning btn-sm">
+                    Restore
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verification Result</title>
+    <style>
+        body{
+            font-family:Arial;
+            text-align:center;
+            margin-top:100px;
+        }
+        ul{
+            list-style:none;
+            padding:0;
+        }
+        li{
+            margin:8px 0;
+        }
+    </style>
+</head>
+<body>
+
+{% if blocked %}
+    <h2 style="color:red;">🚫 This code is BLOCKED due to suspicious activity</h2>
+{% elif valid %}
+    <h2 style="color:green;">✅ Product is Authentic</h2>
+    <p>Total Scans: {{ product.scan_count }}</p>
+
+    <h3 style="color:green;">Product Details</h3>
+
+    <ul>
+        <li><b>Track Code:</b> {{ product.product_code }}</li>
+        <li><b>Product Name:</b> {{ product.product_name }}</li>
+        <li><b>Manufacturing Date:</b> {{ product.manufacturing_date }}</li>
+        <li><b>Expiry Date:</b> {{ product.expiry_date }}</li>
+        <li><b>Lot No:</b> {{ product.lot_number }}</li>
+        <li><b>Serial No:</b> {{ product.serial_number }}</li>
+    </ul>
+
+{% else %}
+    <h2 style="color:red;">❌ Invalid Product Code</h2>
+{% endif %}
+
+<br>
+<a href="{{ url_for('auth.public_verify') }}">
+    Verify Another
+</a>
+
+</body>
+</html>
